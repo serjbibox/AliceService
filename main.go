@@ -62,5 +62,6 @@ func EndpointPing(w http.ResponseWriter, r *http.Request) {
 func Unlink(w http.ResponseWriter, r *http.Request) {
 	log.Println(r.Header.Get("X-Request-Id"))
 	//r.Header.Get("X-Request-Id")
-	SendHttp(w, UnlinkResponse{r.Header.Get("X-Request-Id")})
+	SendHttp(w, UnlinkResponse{"wtf"})
+	//SendHttp(w, UnlinkResponse{r.Header.Get("X-Request-Id")})
 }
