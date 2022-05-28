@@ -20,12 +20,11 @@ func SendHttp(w http.ResponseWriter, v ResponseInterface) {
 }
 
 // @Description Структура HTTP ответа метода GET /submitData/{id}/status
-type StatusResponse struct {
-	ID     string `json:"id" example:"123"`
-	Status string `json:"status" example:"new"`
+type UnlinkResponse struct {
+	RequestID string `json:"request_id" example:"123"`
 }
 
-func (s StatusResponse) Send(w http.ResponseWriter) {
+func (s UnlinkResponse) Send(w http.ResponseWriter) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(&s)
@@ -40,6 +39,7 @@ func main() {
 	r.Route("/", func(r chi.Router) {
 		r.Get("/", Hello)
 		r.Head("/v1.0", EndpointPing)
+		r.Post("/v1.0/user/unlink", Unlink)
 	})
 	httpPort := ":"
 	//Чтение системной переменной PORT для деплоя на Heroku
@@ -53,9 +53,14 @@ func main() {
 }
 
 func Hello(w http.ResponseWriter, r *http.Request) {
-	sr := StatusResponse{"1", "Hello World from me!"}
+	sr := UnlinkResponse{"Hello!"}
 	SendHttp(w, sr)
 }
 func EndpointPing(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
+}
+func Unlink(w http.ResponseWriter, r *http.Request) {
+	log.Println(r.Header.Get("X-Request-Id"))
+	//r.Header.Get("X-Request-Id")
+	SendHttp(w, UnlinkResponse{r.Header.Get("X-Request-Id")})
 }
