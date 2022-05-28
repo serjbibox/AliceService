@@ -61,9 +61,9 @@ func EndpointPing(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 func Unlink(w http.ResponseWriter, r *http.Request) {
-	log.Println(r.Header.Get("XRequestId"))
+	log.Println("ID запроса: ", r.Header.Get("X-Request-Id"))
 	u := UnlinkResponse{
-		RequestID: r.Header.Get("XRequestId"),
+		RequestID: r.Header.Get("X-Request-Id"),
 		Message:   r.Header.Get("Authorization"),
 	}
 	//r.Header.Get("X-Request-Id")
