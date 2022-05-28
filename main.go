@@ -49,6 +49,6 @@ func main() {
 }
 
 func Hello(w http.ResponseWriter, r *http.Request) {
-	sr := StatusResponse{"1", "new"}
+	sr := StatusResponse{"1", "Hello!"}
 	SendHttp(w, sr)
 }
