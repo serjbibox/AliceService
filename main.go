@@ -94,7 +94,7 @@ func main() {
 		r.Get("/", Hello)
 		r.Head("/v1.0", EndpointPing)
 		r.Post("/v1.0/user/unlink", Unlink)
-		r.Get("v1.0/user/devices", DevicesList)
+		r.Get("/v1.0/user/devices", DevicesList)
 	})
 	httpPort := ":"
 	//Чтение системной переменной PORT для деплоя на Heroku
