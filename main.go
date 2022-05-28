@@ -35,11 +35,11 @@ func main() {
 	r := chi.NewRouter()
 	r.Use(middleware.RequestID)
 	r.Use(middleware.Recoverer)
-	r.Use(middleware.URLFormat)
+	//r.Use(middleware.URLFormat)
 	r.Use(render.SetContentType(render.ContentTypeJSON))
-	r.Get("/", Hello)
-	r.Route("/v1.0", func(r chi.Router) {
-		r.Head("/", EndpointPing)
+	r.Route("/", func(r chi.Router) {
+		r.Get("/", Hello)
+		r.Head("/v1.0", EndpointPing)
 	})
 	httpPort := ":"
 	//Чтение системной переменной PORT для деплоя на Heroku
@@ -48,6 +48,7 @@ func main() {
 	} else {
 		httpPort += env
 	}
+
 	log.Panic(http.ListenAndServe(httpPort, r))
 }
 
