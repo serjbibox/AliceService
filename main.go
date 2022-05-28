@@ -39,7 +39,6 @@ func main() {
 	r.Use(render.SetContentType(render.ContentTypeJSON))
 	r.Get("/", Hello)
 	r.Route("/v1.0", func(r chi.Router) {
-
 		r.Get("/", EndpointPing)
 	})
 	httpPort := ":"
@@ -58,4 +57,6 @@ func Hello(w http.ResponseWriter, r *http.Request) {
 }
 func EndpointPing(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
+	sr := StatusResponse{"1", "OK!"}
+	SendHttp(w, sr)
 }
