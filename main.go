@@ -22,6 +22,7 @@ func SendHttp(w http.ResponseWriter, v ResponseInterface) {
 // @Description Структура HTTP ответа метода GET /submitData/{id}/status
 type UnlinkResponse struct {
 	RequestID string `json:"request_id" example:"123"`
+	Message   string `json:"messadge" example:"123"`
 }
 
 func (s UnlinkResponse) Send(w http.ResponseWriter) {
@@ -53,7 +54,7 @@ func main() {
 }
 
 func Hello(w http.ResponseWriter, r *http.Request) {
-	sr := UnlinkResponse{"Hello!"}
+	sr := UnlinkResponse{"Hello!", "message"}
 	SendHttp(w, sr)
 }
 func EndpointPing(w http.ResponseWriter, r *http.Request) {
@@ -61,7 +62,11 @@ func EndpointPing(w http.ResponseWriter, r *http.Request) {
 }
 func Unlink(w http.ResponseWriter, r *http.Request) {
 	log.Println(r.Header.Get("X-Request-Id"))
+	u := UnlinkResponse{
+		RequestID: r.Header.Get("X-Request-Id"),
+		Message:   r.Header.Get("Authorization"),
+	}
 	//r.Header.Get("X-Request-Id")
 	//SendHttp(w, UnlinkResponse{"wtf"})
-	SendHttp(w, UnlinkResponse{r.Header.Get("X-Request-Id")})
+	SendHttp(w, u)
 }
