@@ -124,15 +124,19 @@ func Unlink(w http.ResponseWriter, r *http.Request) {
 }
 func DevicesList(w http.ResponseWriter, r *http.Request) {
 	log.Println("ID запроса: ", r.Header.Get("X-Request-Id"))
+	d := Device{
+		ID:   "1",
+		Name: "Humidity",
+	}
+	devices := make([]Device, 0, 0)
+	devices = append(devices, d)
 	dl := DevicesInfoResponse{
 		RequestID: r.Header.Get("X-Request-Id"),
 
 		PL: PayLoad{
 			UserID:  "001",
-			Devices: []Device{},
+			Devices: devices,
 		},
 	}
-	//r.Header.Get("X-Request-Id")
-	//SendHttp(w, UnlinkResponse{"wtf"})
 	SendHttp(w, &dl)
 }
