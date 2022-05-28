@@ -38,6 +38,17 @@ func main() {
 	r.Use(middleware.URLFormat)
 	r.Use(render.SetContentType(render.ContentTypeJSON))
 	r.Get("/", Hello)
+	r.Route("/v1.0", func(r chi.Router) {
+
+		r.Get("/", EndpointPing)
+		r.Post("/", apis.Insert)
+		r.Route("/{passID}", func(r chi.Router) {
+			r.Use(Ctx)
+			r.Get("/", apis.GetPass)
+			r.Get("/status", apis.GetStatus)
+			r.Put("/", apis.UpdatePass)
+		})
+	})
 	httpPort := ":"
 	//Чтение системной переменной PORT для деплоя на Heroku
 	if env, ok := os.LookupEnv("PORT"); !ok {
@@ -51,4 +62,7 @@ func main() {
 func Hello(w http.ResponseWriter, r *http.Request) {
 	sr := StatusResponse{"1", "Hello World from me!"}
 	SendHttp(w, sr)
+}
+func EndpointPing(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
 }
