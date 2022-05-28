@@ -39,7 +39,7 @@ func main() {
 	r.Use(render.SetContentType(render.ContentTypeJSON))
 	r.Get("/", Hello)
 	r.Route("/v1.0", func(r chi.Router) {
-		r.Get("/", EndpointPing)
+		r.Head("/", EndpointPing)
 	})
 	httpPort := ":"
 	//Чтение системной переменной PORT для деплоя на Heroku
