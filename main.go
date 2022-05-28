@@ -41,13 +41,6 @@ func main() {
 	r.Route("/v1.0", func(r chi.Router) {
 
 		r.Get("/", EndpointPing)
-		r.Post("/", apis.Insert)
-		r.Route("/{passID}", func(r chi.Router) {
-			r.Use(Ctx)
-			r.Get("/", apis.GetPass)
-			r.Get("/status", apis.GetStatus)
-			r.Put("/", apis.UpdatePass)
-		})
 	})
 	httpPort := ":"
 	//Чтение системной переменной PORT для деплоя на Heroku
