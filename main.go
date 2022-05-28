@@ -57,6 +57,4 @@ func Hello(w http.ResponseWriter, r *http.Request) {
 }
 func EndpointPing(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
-	sr := StatusResponse{"1", "OK!"}
-	SendHttp(w, sr)
 }
