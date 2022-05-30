@@ -22,6 +22,7 @@ func main() {
 		r.Head("/", api.EndpointPing)
 		r.Post("/user/unlink", api.Unlink)
 		r.Post("/user/devices/query", api.Query)
+		r.Post("/user/devices/action", api.Action)
 		r.Get("/user/devices", api.DevicesList)
 	})
 	httpPort := ":"
