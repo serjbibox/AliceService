@@ -21,6 +21,7 @@ func main() {
 	r.Route("/v1.0", func(r chi.Router) {
 		r.Head("/", api.EndpointPing)
 		r.Post("/user/unlink", api.Unlink)
+		r.Post("/user/devices/query", api.Query)
 		r.Get("/user/devices", api.DevicesList)
 	})
 	httpPort := ":"
